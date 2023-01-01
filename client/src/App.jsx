@@ -1,31 +1,30 @@
-import {useState} from 'react'
-import reactLogo from './assets/react.svg'
+import {useMemo, useState} from 'react'
+import {createTheme, ThemeProvider} from '@mui/material/styles'
+import CssBaseline from '@mui/material/CssBaseline';
+import {themeSettings} from './theme'
+import {useSelector} from 'react-redux'
+import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom'
+import Dashboard from "./scenes/Dashboard";
+import Layout from "./scenes/Layout";
 
 function App() {
-    const [count, setCount] = useState(0)
+    const mode = useSelector((state) => state.global?.mode)
+    const theme = useMemo(() => createTheme(themeSettings(mode)), [mode])
 
     return (
-        <div className="App">
-            <div>
-                <a href="https://vitejs.dev" target="_blank">
-                    <img src="/vite.svg" className="logo" alt="Vite logo"/>
-                </a>
-                <a href="https://reactjs.org" target="_blank">
-                    <img src={reactLogo} className="logo react" alt="React logo"/>
-                </a>
-            </div>
-            <h1>Vite + React1</h1>
-            <div className="card">
-                <button onClick={() => setCount((count) => count + 1)}>
-                    count is {count}
-                </button>
-                <p>
-                    Edit <code>src/App.jsx</code> and save to test HMR
-                </p>
-            </div>
-            <p className="read-the-docs">
-                Click on the Vite and React logos to learn more
-            </p>
+        <div className='app'>
+            <BrowserRouter>
+                <ThemeProvider theme={theme}>
+                    <CssBaseline/>
+                    <Routes>
+                        <Route element={<Layout/>}>
+                            <Route path='/' element={<Navigate to={'/dashboard'} replace/>}/>
+                            <Route path='/dashboard' element={<Dashboard/>}/>
+                            <Route path='*' element={<h3>Not found</h3>}/>
+                        </Route>
+                    </Routes>
+                </ThemeProvider>
+            </BrowserRouter>
         </div>
     )
 }
