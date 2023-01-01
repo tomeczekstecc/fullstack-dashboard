@@ -5,7 +5,7 @@ import {themeSettings} from './theme'
 import {useSelector} from 'react-redux'
 import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom'
 import Dashboard from "./scenes/Dashboard";
-import Layout from "./scenes/Layout";
+import Layout from "./scenes/layout";
 
 function App() {
     const mode = useSelector((state) => state.global?.mode)

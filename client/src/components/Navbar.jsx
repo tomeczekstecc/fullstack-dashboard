@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {
     LightModeOutlined,
     DarkModeOutlined,
@@ -51,14 +51,11 @@ const Navbar = () => {
                 </IconButton>
                 <IconButton>
                     <SettingsOutlined
-                        sx={{
-                            fontSize: '25px'
-                        }}
+                        sx={{fontSize: '25px'}}
                     />
                 </IconButton>
+
             </FlexBetween>
-
-
         </Toolbar>
     </AppBar>;
 }
