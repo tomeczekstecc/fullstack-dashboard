@@ -10,7 +10,10 @@ import generalRoutes from "./routes/general.js";
 import managementRoutes from "./routes/management.js";
 import salesRoutes from "./routes/sales.js";
 import colors from "colors";
+// import User from "./models/User.js";
 
+// data imports
+// import {dataUser} from "./data/index.js";
 
 // CONFIG
 
@@ -38,6 +41,7 @@ const connectDB = () => mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
 }).then(() => {
         console.log('Connected to MongoDB'.magenta.bold);
+        // User.insertMany(dataUser); // !!! only one time
     }
 ).catch((err) => {
         console.log(err);

@@ -35,6 +35,7 @@ import FlexBetween from "./FlexBetween.jsx";
 import profileImage from "../assets/profile.jpeg";
 
 const Sidebar = ({
+                     user,
                      drawerWidth,
                      isSidebarOpen,
                      setIsSidebarOpen,
@@ -45,10 +46,60 @@ const Sidebar = ({
     const navigate = useNavigate()
     const theme = useTheme()
 
+    const navItems = [
+        {
+            text: 'Dashboard',
+            icon: <HomeOutlined/>,
+        }, {
+            text: 'Client facing',
+            icon: null,
+        }, {
+            text: 'Products',
+            icon: <ShoppingCartOutlined/>,
+        }, {
+            text: 'Customers',
+            icon: <Groups2Outlined/>,
+        }, {
+            text: 'Transactions',
+            icon: <ReceiptLongOutlined/>,
+        }, {
+            text: 'Geography',
+            icon: <PublicOutlined/>,
+        },
+        {
+            text: 'Sales',
+            icon: null,
+        }, {
+            text: 'Overview',
+            icon: <PointOfSaleOutlined/>,
+        }, {
+            text: 'Daily',
+            icon: <TodayOutlined/>,
+        }, {
+            text: 'Monthly',
+            icon: <CalendarMonthOutlined/>,
+        },
+        {
+            text: 'Breakdown',
+            icon: <PieChartOutlined/>,
+        }, {
+            text: 'Management',
+            icon: null,
+        }, {
+            text: 'Admin',
+            icon: <AdminPanelSettingsOutlined/>,
+        }, {
+            text: 'Settings',
+            icon: <SettingsOutlined/>,
+        }, {
+            text: 'Performance',
+            icon: <TrendingUpOutlined/>,
+        },
+    ]
+
     useEffect(() => {
         setActive(pathname.substring(1))
     }, [pathname])
-
 
     return <Box
         component={'nav'}>
@@ -62,15 +113,94 @@ const Sidebar = ({
                     width: drawerWidth,
                     "& .MuiDrawer-paper": {
                         color: theme.palette.text.secondary[200],
-                        width: drawerWidth,
-
                         backgroundColor: theme.palette.background.alt,
                         boxSizing: 'border-box',
                         borderWidth: isNoneMobile ? 0 : '2px',
+                        width: drawerWidth,
                     }
-
                 }}
-            />)}
+            >
+                <Box width={'100%'}>
+                    <Box m={'1.5rem 2rem 2rem 3rem'}>
+                        <FlexBetween coloer={theme.palette.secondary.main}>
+                            <Box display={'flex'} alignItems='center' gap={'.5rem'}>
+                                <Typography variant={'h4'} fontWeight={'bold'}>ECOMVISION</Typography>
+                            </Box>
+                            {!isNoneMobile && (
+                                <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+                                    <ChevronLeft/>
+                                </IconButton>
+                            )}
+                        </FlexBetween>
+                    </Box>
+                    <List>
+                        {navItems.map(({icon, text}) => {
+                            if (!icon) {
+                                return (
+                                    <Typography key={text} sx={{
+                                        m: '2.25rem 0 1rem 3rem'
+                                    }}>
+                                        {text}
+                                    </Typography>
+                                )
+                            }
+                            const lcText = text.toLowerCase()
+                            return (
+                                <ListItem key={text} disablePadding>
+                                    <ListItemButton
+                                        sx={{
+                                            backgroundColor: active === lcText ? theme.palette.secondary[300] : 'transparent',
+                                            color: active === lcText ? theme.palette.primary[600] : theme.palette.text.secondary[100],
+                                        }
+                                        }
+                                        onClick={() => {
+                                            navigate(`/${lcText}`)
+                                            setActive(lcText)
+                                        }}>
+                                        <ListItemIcon sx={{
+                                            ml: '2rem',
+                                            color: active === lcText ? theme.palette.primary[600] : theme.palette.text.secondary[200],
+                                        }}>
+                                            {icon}
+                                        </ListItemIcon>
+                                        <ListItemText primary={text}/>
+                                        {active === lcText && (
+                                            <ChevronRightOutlined sx={{ml: 'auto'}}/>
+                                        )}
+                                    </ListItemButton>
+                                </ListItem>
+                            )
+                        })}
+                    </List>
+                </Box>
+                <Box position={'absolute'} width={'100%'} bottom={'1rem'}>
+                    <Divider/>
+                    <FlexBetween sx={{padding: '1rem 1.5rem 1rem'}}>
+                        <Box component={'img'} src={profileImage} alt={'profile'}
+                             height='40px' width='40px' borderRadius={'50%'}
+                             sx={{objectFit: 'cover'}}
+                        />
+                        <Box
+                            textAlign={'left'}
+                        >
+                            <Typography fontSize={'0.9rem'} fontWeight={'bold'} sx={{
+                                color: theme.palette.text.secondary[100]
+                            }}>{user.name}
+                            </Typography>
+                            <Typography fontSize={'0.8rem'} sx={{
+                                color: theme.palette.text.secondary[200]
+                            }}>{user.occupation}
+                            </Typography>
+                        </Box>
+                        <SettingsOutlined sx={{
+                            color: theme.palette.text.secondary[300],
+                            fontSize: '25px',
+                        }}/>
+                    </FlexBetween>
+
+                </Box>
+            </Drawer>
+        )}
     </Box>
 
 }
