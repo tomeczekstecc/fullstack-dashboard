@@ -1,5 +1,24 @@
 {
+  "name": "dashboard-fullstack",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "dependencies": {
     "colors": "^1.4.0"
-  }
+  },
+  "devDependencies": {
+    "concurrently": "^7.6.0"
+  },
+  "scripts": {
+    "dev": "concurrently \"npm run start:client\" \"npm run start:server\" --names \"client,server\"",
+    "start:client": "cd client && npm run dev",
+    "start:server": "cd server && npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.homelab.tslab.live/tomek/dashboard-fullstack.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

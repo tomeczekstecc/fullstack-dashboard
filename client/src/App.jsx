@@ -4,8 +4,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 import {themeSettings} from './theme'
 import {useSelector} from 'react-redux'
 import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom'
-import Dashboard from "./scenes/Dashboard";
+import Dashboard from "./scenes/dashboard";
 import Layout from "./scenes/layout";
+import Products from "./scenes/products/index.jsx";
 
 function App() {
     const mode = useSelector((state) => state.global?.mode)
@@ -20,6 +21,7 @@ function App() {
                         <Route element={<Layout/>}>
                             <Route path='/' element={<Navigate to={'/dashboard'} replace/>}/>
                             <Route path='/dashboard' element={<Dashboard/>}/>
+                            <Route path='/products' element={<Products/>}/>
                             <Route path='*' element={<h3>Not found</h3>}/>
                         </Route>
                     </Routes>

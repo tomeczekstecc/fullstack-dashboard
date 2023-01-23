@@ -13,7 +13,6 @@ const Layout = () => {
     const userId = useSelector(state => state.global.userId) // get userId from global state
 
     const {data} = useGetUserQuery(userId) // get user data from api
-    console.log(data, 'data')
 
     return <Box display={isNoneMobile ? 'flex' : 'block'} width={'100%'} height={'100%'}>
         <Sidebar
