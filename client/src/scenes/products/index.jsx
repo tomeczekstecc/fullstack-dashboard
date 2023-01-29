@@ -64,7 +64,7 @@ const Product = ({_id, name, description, price, rating, category, supply, stat}
 const Products = () => {
 
     const {data, isLoading} = useGetProductsQuery()
-    console.log(data, 'data')
+    console.log(data, 'data', isLoading, 'isLoading')
     const isNoneMobile = useMediaQuery('(min-width: 1000px)')
 
 
@@ -84,7 +84,7 @@ const Products = () => {
                                        }
                                    }}
             >
-                {data.map((product) => <Product key={product._id} {...product}/>)}
+                {data?.map((product) => <Product key={product._id} {...product}/>)}
 
             </Box>
 

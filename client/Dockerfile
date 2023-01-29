@@ -16,6 +16,6 @@ RUN npm run build
 
 
 FROM nginx:1.23-alpine
-EXPOSE 3002
+EXPOSE 3000
 COPY ./nginx/default-prod.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /build /usr/share/nginx/html

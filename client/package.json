@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --mode development --host",
-    "build": "vite build",
+    "dev": "vite --mode development",
+    "build": "vite build --outDir /build",
     "preview": "vite build && vite preview --port 3001 --host"
   },
   "dependencies": {

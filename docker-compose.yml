@@ -1,0 +1,27 @@
+version: '3.7'
+services:
+  client:
+    container_name: client
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+    environment:
+      - VITE_BASE_URL=http://server:5001
+    depends_on:
+      - server
+
+  server:
+    container_name: server
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - 5001:5001
+    volumes:
+      - /app/node_modules
+      - ./server:/app

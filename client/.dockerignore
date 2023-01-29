@@ -2,9 +2,9 @@
 .vscode
 .dockerignore
 .gitignore
-.env
+.env.local
 config
-build
+#build
 node_modules
 docker-compose.yaml
 Dockerfile

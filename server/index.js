@@ -9,14 +9,16 @@ import clientRoutes from "./routes/client.js";
 import generalRoutes from "./routes/general.js";
 import managementRoutes from "./routes/management.js";
 import salesRoutes from "./routes/sales.js";
+import Transaction from "./models/Transaction.js";
+import OverallStat from "./models/OverallStat.js";
 import colors from "colors";
+
 import User from "./models/User.js";
 import Product from "./models/Product.js";
-import {dataProduct, dataProductStat} from "./data/index.js";
+import {dataUser, dataTransaction, dataProduct, dataProductStat, dataOverallStat} from "./data/index.js";
 import ProductStats from "./models/ProductStats.js";
 
 // data imports
-// import {dataUser} from "./data/index.jsx";
 
 // CONFIG
 
@@ -26,6 +28,7 @@ app.use(express.json());
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({policy: 'cross-origin'}));
 app.use(morgan('combined'));
+
 app.use(cors());
 // app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -43,11 +46,13 @@ const PORT = process.env.PORT || 5000;
 const connectDB = () => mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
 }).then(() => {
-        console.log('Connected to MongoDB'.magenta.bold);
+        console.log('Connected to MongoDB'.cyan);
         // User.insertMany(dataUser); // !!! only one time
         // Product.insertMany(dataProduct); // !!! only one time
-
         // ProductStats.insertMany(dataProductStat); // !!! only one time
+        // Transaction.insertMany(dataTransaction); // !!! only one time
+
+        // OverallStat.insertMany(dataOverallStat); // !!! only one time
     }
 ).catch((err) => {
         console.log(err);
@@ -57,5 +62,5 @@ const connectDB = () => mongoose.connect(process.env.MONGO_URL, {
 app.listen(PORT, () => {
     mongoose.set('strictQuery', false)
     connectDB();
-    console.log(`Server running on port: ${PORT}`.yellow.bold)
+    console.log(`Server running on port: ${PORT}`.magenta)
 });
