@@ -89,9 +89,6 @@ const Sidebar = ({
             text: 'Admin',
             icon: <AdminPanelSettingsOutlined/>,
         }, {
-            text: 'Settings',
-            icon: <SettingsOutlined/>,
-        }, {
             text: 'Performance',
             icon: <TrendingUpOutlined/>,
         },

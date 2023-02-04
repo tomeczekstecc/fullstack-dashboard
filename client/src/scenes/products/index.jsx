@@ -64,7 +64,6 @@ const Product = ({_id, name, description, price, rating, category, supply, stat}
 const Products = () => {
 
     const {data, isLoading} = useGetProductsQuery()
-    console.log(data, 'data', isLoading, 'isLoading')
     const isNoneMobile = useMediaQuery('(min-width: 1000px)')
 
 

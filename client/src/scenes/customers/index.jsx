@@ -22,7 +22,6 @@ const Customers = (props) => {
         {field: 'role', headerName: 'Role', flex: 1}
     ]
     const {data, error, isLoading} = useGetCustomersQuery()
-    console.log(data)
     return (
         <Box m={"1.5rem 2.5rem"}
              sx={{

@@ -1,20 +1,16 @@
-import React, {useState, useMemo} from 'react'
-import "react-datepicker/dist/react-datepicker.css";
+import React, {useMemo} from 'react'
 import {useGetSalesQuery} from "../../state/api.js";
 import {Box, useTheme,} from "@mui/material";
 import Header from "../../components/Header.jsx";
-import OverviewChart from "../../components/OverviewChart.jsx";
-import ReactDatePicker from 'react-datepicker'
 import {ResponsiveLine} from "@nivo/line";
 
-const Daily = () => {
+const Monthly = () => {
     const theme = useTheme()
-    const [startDate, setStartDate] = useState(new Date("2021/01/01"));
-    const [endDate, setEndDate] = useState(new Date("2021/02/28"));
-    const {data, isLoading} = useGetSalesQuery()
+    const {data} = useGetSalesQuery()
+    const {monthlyData} = data
+
     const [formattedData] = useMemo(() => {
         if (!data) return []
-        const {dailyData} = data
         const totalSalesLine = {
             id: 'sales',
             color: theme.palette.secondary.main,
@@ -25,48 +21,22 @@ const Daily = () => {
             color: theme.palette.secondary[600],
             data: []
         }
-        Object.values(dailyData).forEach(({date, totalSales, totalUnits}) => {
-            console.table({date, totalSales, totalUnits})
-
-
-            const dateFormatted = new Date(date)
-            if (dateFormatted >= startDate && dateFormatted <= endDate) {
-                const splitDate = date.substring(date.indexOf('-') + 1)
-                totalSalesLine.data = [...totalSalesLine.data, {x: splitDate, y: totalSales}]
-                totalUnitsLine.data = [...totalUnitsLine.data, {x: splitDate, y: totalUnits}]
-            }
+        Object.values(monthlyData).forEach(({month, totalSales, totalUnits}) => {
+            totalSalesLine.data = [...totalSalesLine.data, {x: month, y: totalSales}]
+            totalUnitsLine.data = [...totalUnitsLine.data, {x: month, y: totalUnits}]
         })
 
         const formattedData = [totalSalesLine, totalUnitsLine]
         return [formattedData]
 
-    }, [data, startDate, endDate])
+    }, [data])
+
+
     return (
         <Box m={'1.5rem 2.5rem'}>
 
-            <Header title={'DAILY SALES'} subtitle={'Chart of daily sales'}/>
+            <Header title={'MONTHLY SALES'} subtitle={'Chart of monthly sales'}/>
             <Box height={'75vh'}>
-                <Box display={'flex'} justifyContent={'flex-end'}>
-                    <Box>
-                        <ReactDatePicker
-                            selected={startDate}
-                            onChange={(date) => setStartDate(date)}
-                            selectsStart
-                            startDate={startDate}
-                            endDate={endDate}
-                        /></Box>
-                    <Box>
-
-                        <ReactDatePicker
-                            selected={endDate}
-                            onChange={(date) => setEndDate(date)}
-                            selectsEnd
-                            startDate={startDate}
-                            endDate={endDate}
-                            minDate={startDate}
-                        />
-                    </Box>
-                </Box>
                 {data ? <ResponsiveLine
                     data={formattedData}
                     theme={{
@@ -116,7 +86,7 @@ const Daily = () => {
                     }}
                     colors={{datum: 'color'}}
                     yFormat=" >-.2f"
-                    curve="catmullRom"
+                    // curve="catmullRom"
                     axisTop={null}
                     axisRight={null}
                     axisBottom={{
@@ -124,7 +94,7 @@ const Daily = () => {
                         tickSize: 5,
                         tickPadding: 5,
                         tickRotation: 90,
-                        legend: 'Day',
+                        legend: 'Month',
                         legendOffset: 60,
                         legendPosition: 'middle',
                     }}
@@ -180,4 +150,4 @@ const Daily = () => {
 }
 
 
-export default Daily
+export default Monthly

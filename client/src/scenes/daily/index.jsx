@@ -26,8 +26,6 @@ const Daily = () => {
             data: []
         }
         Object.values(dailyData).forEach(({date, totalSales, totalUnits}) => {
-            console.table({date, totalSales, totalUnits})
-
 
             const dateFormatted = new Date(date)
             if (dateFormatted >= startDate && dateFormatted <= endDate) {

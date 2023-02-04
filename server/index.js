@@ -11,11 +11,18 @@ import managementRoutes from "./routes/management.js";
 import salesRoutes from "./routes/sales.js";
 import Transaction from "./models/Transaction.js";
 import OverallStat from "./models/OverallStat.js";
+import AffiliateStat from "./models/AffiliateStat.js";
 import colors from "colors";
-
 import User from "./models/User.js";
 import Product from "./models/Product.js";
-import {dataUser, dataTransaction, dataProduct, dataProductStat, dataOverallStat} from "./data/index.js";
+import {
+    dataUser,
+    dataTransaction,
+    dataProduct,
+    dataProductStat,
+    dataOverallStat,
+    dataAffiliateStat
+} from "./data/index.js";
 import ProductStats from "./models/ProductStats.js";
 
 // data imports
@@ -53,6 +60,7 @@ const connectDB = () => mongoose.connect(process.env.MONGO_URL, {
         // Transaction.insertMany(dataTransaction); // !!! only one time
 
         // OverallStat.insertMany(dataOverallStat); // !!! only one time
+        // AffiliateStat.insertMany(dataAffiliateStat); // !!! only one time
     }
 ).catch((err) => {
         console.log(err);
