@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --mode development",
-    "build": "vite build --outDir /build",
+    "build": "vite build",
     "preview": "vite build && vite preview --port 3001 --host"
   },
   "dependencies": {
